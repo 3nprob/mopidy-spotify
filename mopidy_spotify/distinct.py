@@ -14,7 +14,9 @@ def get_distinct(config, playlists, web_client, field, query=None):
     if field == "artist":
         result = _get_distinct_artists(config, playlists, web_client, query)
     elif field == "albumartist":
-        result = _get_distinct_albumartists(config, playlists, web_client, query)
+        result = _get_distinct_albumartists(
+            config, playlists, web_client, query
+        )
     elif field == "album":
         result = _get_distinct_albums(config, playlists, web_client, query)
     elif field == "date":
@@ -28,9 +30,7 @@ def get_distinct(config, playlists, web_client, field, query=None):
 def _get_distinct_artists(config, playlists, web_client, query):
     logger.debug(f"Getting distinct artists: {query}")
     if query:
-        search_result = _get_search(
-            config, web_client, query, artist=True
-        )
+        search_result = _get_search(config, web_client, query, artist=True)
         return {artist.name for artist in search_result.artists}
     else:
         return {
@@ -43,9 +43,7 @@ def _get_distinct_artists(config, playlists, web_client, query):
 def _get_distinct_albumartists(config, playlists, web_client, query):
     logger.debug(f"Getting distinct albumartists: {query}")
     if query:
-        search_result = _get_search(
-            config, web_client, query, album=True
-        )
+        search_result = _get_search(config, web_client, query, album=True)
         return {
             artist.name
             for album in search_result.albums
@@ -64,9 +62,7 @@ def _get_distinct_albumartists(config, playlists, web_client, query):
 def _get_distinct_albums(config, playlists, web_client, query):
     logger.debug(f"Getting distinct albums: {query}")
     if query:
-        search_result = _get_search(
-            config, web_client, query, album=True
-        )
+        search_result = _get_search(config, web_client, query, album=True)
         return {album.name for album in search_result.albums}
     else:
         return {
@@ -79,9 +75,7 @@ def _get_distinct_albums(config, playlists, web_client, query):
 def _get_distinct_dates(config, playlists, web_client, query):
     logger.debug(f"Getting distinct album years: {query}")
     if query:
-        search_result = _get_search(
-            config, web_client, query, album=True
-        )
+        search_result = _get_search(config, web_client, query, album=True)
         return {
             album.date
             for album in search_result.albums

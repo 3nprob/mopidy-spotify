@@ -4,7 +4,6 @@ import pytest
 from mopidy import backend as backend_api
 from mopidy.models import Ref
 
-import spotify
 from mopidy_spotify import playlists
 
 
@@ -234,4 +233,7 @@ def test_playlist_lookup_when_link_invalid(
     )
 
     assert playlist is None
-    assert "Failed to lookup Spotify playlist URI 'spotify:in:valid'" in caplog.text
+    assert (
+        "Failed to lookup Spotify playlist URI 'spotify:in:valid'"
+        in caplog.text
+    )

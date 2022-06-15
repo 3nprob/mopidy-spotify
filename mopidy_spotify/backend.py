@@ -1,18 +1,14 @@
 import logging
-import pathlib
-import threading
 
 import pykka
-from mopidy import backend, httpclient
+from mopidy import backend
 
-import spotify
-from mopidy_spotify import Extension, library, playlists, web
+from mopidy_spotify import library, playlists, web
 
 logger = logging.getLogger(__name__)
 
 
 class SpotifyBackend(pykka.ThreadingActor, backend.Backend):
-
     def __init__(self, config, audio):
         super().__init__()
 
@@ -42,6 +38,7 @@ class SpotifyBackend(pykka.ThreadingActor, backend.Backend):
 
         if self.playlists is not None:
             self.playlists.refresh()
+
 
 class SpotifyPlaybackProvider(backend.PlaybackProvider):
     def translate_uri(self, uri):
