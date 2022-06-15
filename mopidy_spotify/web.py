@@ -483,7 +483,9 @@ class SpotifyOAuthClient(OAuthClient):
 
     def get_album(self, web_link):
         if web_link.type != LinkType.ALBUM:
-            logger.error("Expecting Spotify album URI")
+            logger.error(
+                f"Expecting Spotify album URI, got {str(web_link.type)}"
+            )
             return {}
 
         album = self.get_one(
@@ -494,7 +496,9 @@ class SpotifyOAuthClient(OAuthClient):
 
     def get_artist_albums(self, web_link):
         if web_link.type != LinkType.ARTIST:
-            logger.error("Expecting Spotify artist URI")
+            logger.error(
+                f"Expecting Spotify artist URI, got {str(web_link.type)}"
+            )
             return []
 
         pages = self.get_all(
@@ -511,8 +515,9 @@ class SpotifyOAuthClient(OAuthClient):
                 yield self.get_album(web_link)
 
     def get_track(self, web_link):
-        if web_link.type != LinkType.TRACK:
-            logger.error("Expecting Spotify track URI")
+            logger.error(
+                f"Expecting Spotify track URI, got {str(web_link.type)}"
+            )
             return {}
 
         return self.get_one(

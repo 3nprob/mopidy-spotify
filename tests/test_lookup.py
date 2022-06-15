@@ -1,4 +1,9 @@
 import copy
+<<<<<<< HEAD
+=======
+
+import spotify
+>>>>>>> 4b83135 (lint)
 
 
 def test_lookup_of_invalid_uri(provider, caplog):
