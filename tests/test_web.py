@@ -562,14 +562,17 @@ def test_cache_normalised_query_string(
         responses.GET,
         url,
         json={"uri": "foobar"},
-        # match_querystring=True,
-        match=[matchers.query_string_matcher("b=bar&f=foo")],
+        match=[
+            responses.matchers.query_param_matcher({"b": "bar", "f": "foo"})
+        ],
     )
     responses.add(
         responses.GET,
         url,
         json={"uri": "cat"},
-        match=[matchers.query_string_matcher("b=bar&f=cat")],
+        match=[
+            responses.matchers.query_param_matcher({"b": "bar", "f": "cat"})
+        ],
     )
     mock_time.return_value = 0
 
