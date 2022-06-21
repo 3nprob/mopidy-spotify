@@ -4,7 +4,6 @@ import pytest
 from mopidy import backend as backend_api
 from mopidy import models
 
-import spotify
 from mopidy_spotify import backend, library, utils, web
 
 

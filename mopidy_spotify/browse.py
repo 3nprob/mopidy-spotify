@@ -43,7 +43,7 @@ _TOPLIST_TYPES = {
 
 _TOPLIST_REGIONS = {
     "country": lambda session: session.user_country,
-    "everywhere": lambda session: spotify.ToplistRegion.EVERYWHERE,
+    "everywhere": lambda session: None.ToplistRegion.EVERYWHERE,
 }
 
 

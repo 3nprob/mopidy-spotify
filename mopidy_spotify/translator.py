@@ -3,8 +3,6 @@ import logging
 
 from mopidy import models
 
-import spotify
-
 logger = logging.getLogger(__name__)
 
 
@@ -121,51 +119,6 @@ def web_to_album_refs(web_albums):
         ref = web_to_album_ref(web_album)
         if ref is not None:
             yield ref
-
-
-@memoized
-def to_track(sp_track, bitrate=None):
-    if not sp_track.is_loaded:
-        return
-
-    if sp_track.error != spotify.ErrorType.OK:
-        logger.debug(f"Error loading {sp_track.link.uri!r}: {sp_track.error!r}")
-        return
-
-    if sp_track.availability != spotify.TrackAvailability.AVAILABLE:
-        return
-
-    artists = [to_artist(sp_artist) for sp_artist in sp_track.artists]
-    artists = [a for a in artists if a]
-
-    album = to_album(sp_track.album)
-
-    return models.Track(
-        uri=sp_track.link.uri,
-        name=sp_track.name,
-        artists=artists,
-        album=album,
-        date=album.date,
-        length=sp_track.duration,
-        disc_no=sp_track.disc,
-        track_no=sp_track.index,
-        bitrate=bitrate,
-    )
-
-
-@memoized
-def to_track_ref(sp_track):
-    if not sp_track.is_loaded:
-        return
-
-    if sp_track.error != spotify.ErrorType.OK:
-        logger.debug(f"Error loading {sp_track.link.uri!r}: {sp_track.error!r}")
-        return
-
-    if sp_track.availability != spotify.TrackAvailability.AVAILABLE:
-        return
-
-    return models.Ref.track(uri=sp_track.link.uri, name=sp_track.name)
 
 
 def valid_web_data(data, object_type):
